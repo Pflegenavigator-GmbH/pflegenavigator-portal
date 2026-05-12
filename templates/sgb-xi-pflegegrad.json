@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGB XI Pflegegrad-Einschätzung",
+  "description": "Output-Schema für Pflegegrad-Berechnung nach SGB XI",
+  "type": "object",
+  "required": ["pflegegrad", "bewertung", "module", "disclaimer"],
+  "properties": {
+    "pflegegrad": {
+      "type": "integer",
+      "enum": [1, 2, 3, 4, 5],
+      "description": "Berechneter Pflegegrad (1-5)"
+    },
+    "bewertung": {
+      "type": "object",
+      "required": ["punktzahl", "stufen"],
+      "properties": {
+        "punktzahl": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 270,
+          "description": "Gesamtpunktzahl aus MDK-Bewertung"
+        },
+        "stufen": {
+          "type": "object",
+          "required": ["mobilitaet", "kognitive_kommunikative", "verhaltensauffaelligkeiten", "krankenhausbehandlung", "aerztliche_behandlung", "selbstversorgung"],
+          "properties": {
+            "mobilitaet": { "type": "integer", "minimum": 0, "maximum": 40 },
+            "kognitive_kommunikative": { "type": "integer", "minimum": 0, "maximum": 40 },
+            "verhaltensauffaelligkeiten": { "type": "integer", "minimum": 0, "maximum": 40 },
+            "krankenhausbehandlung": { "type": "integer", "minimum": 0, "maximum": 60 },
+            "aerztliche_behandlung": { "type": "integer", "minimum": 0, "maximum": 50 },
+            "selbstversorgung": { "type": "integer", "minimum": 0, "maximum": 40 }
+          }
+        }
+      }
+    },
+    "leistungen": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Sachleistungen Pflege",
+          "Pflegegeld (Pflegeperson)",
+          "Pflegegeld (ambulant)",
+          "Kombinationsleistung",
+          "Tages- Nachtpflege",
+          "Kurzzeitpflege",
+          "Pflegehilfsmittel",
+          "Wohnumfeldverbessernde Maßnahmen"
+        ]
+      }
+    },
+    "module": {
+      "type": "object",
+      "required": ["mobilitaet", "kognition", "verhalten", "gesundheit", "selbstversorgung", "wohnen"],
+      "properties": {
+        "mobilitaet": { "type": "string", "description": "Bewertung Mobilität" },
+        "kognition": { "type": "string", "description": "Bewertung Kognitive/ Kommunikative Fähigkeiten" },
+        "verhalten": { "type": "string", "description": "Bewertung Verhaltensauffälligkeiten" },
+        "gesundheit": { "type": "string", "description": "Bewertung Gesundheitliche Einschränkungen" },
+        "selbstversorgung": { "type": "string", "description": "Bewertung Selbstversorgung" },
+        "wohnen": { "type": "string", "description": "Bewertung Bewältigung alltäglicher Anforderungen" }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Einschätzung dient nur zur Orientierung. Rechtsverbindlich ist allein die offizielle Prüfung durch den Medizinischen Dienst der Krankenversicherung (MDK). Keine medizinische Diagnose."
+    }
+  }
+}

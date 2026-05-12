@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGB XIV Teilhabe-Einschätzung",
+  "description": "Output-Schema für Schwerbehinderung und Teilhabe nach SGB XIV",
+  "type": "object",
+  "required": ["gdv_wahrscheinlich", "gdv_grad", "gdv_bereich", "antrag_empfohlen", "leistungen", "rechte", "disclaimer"],
+  "properties": {
+    "gdv_wahrscheinlich": {
+      "type": "boolean",
+      "description": "Ist ein Grad der Behinderung (GdB) wahrscheinlich?"
+    },
+    "gdv_grad": {
+      "type": "integer",
+      "minimum": 20,
+      "maximum": 100,
+      "multipleOf": 10,
+      "description": "Eingeschätzter Grad der Behinderung (20-100, Schritte von 10)"
+    },
+    "gdv_bereich": {
+      "type": "string",
+      "enum": [
+        "Hör- und Gleichgewichtsstörungen",
+        "Sehstörungen",
+        "Sprach- und Stimmstörungen",
+        "Untergliederungsstörungen",
+        "Bewegungsstörungen",
+        "Körperliche und seelische Krankheiten",
+        "Geistige Behinderung",
+        "Mehrfachbehinderung"
+      ],
+      "description": "Zuständiger Versorgungsamt-Bereich"
+    },
+    "antrag_empfohlen": {
+      "type": "boolean",
+      "description": "Wird ein Antrag auf Feststellung der Behinderung empfohlen?"
+    },
+    "leistungen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["leistung", "voraussetzung"],
+        "properties": {
+          "leistung": {
+            "type": "string",
+            "enum": [
+              "Schwerbehindertenausweis (außer GdB 20-29)",
+              "Schwerbehinderungsgerechte Eingliederungshilfe",
+              "Erstattung von Kfz-Kosten",
+              "Fahrhilfen (z.B. Handgeräte)",
+              "Arbeitslosengeld + 50% bei GdB 50+",
+              "Frührente (bei GdB 50+)",
+              "Zulage zur Rente (bei GdB 50+)",
+              "Kostenübernahme Hartz IV Mehrbedarf",
+              "Begleitperson im öffentlichen Nahverkehr",
+              "Befreiung Rundfunkbeitrag (bei GdB 80+)",
+              "Nachteilsausgleich Schule/Ausbildung",
+              "Wahlrecht: Arbeitsplatz, Arbeitszeit, Schicht"
+            ]
+          },
+          "voraussetzung": { "type": "string" },
+          "hinweis": { "type": "string" }
+        }
+      }
+    },
+    "rechte": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Schutz vor Kündigung (besonderer Kündigungsschutz)",
+          "Zusatzurlaub (5 Tage bei GdB 50+)",
+          "Arbeitszeitverkürzung bei vollem Lohn (bei GdB 50+)",
+          "Pflegezeit und Familienpflegezeit",
+          "Anspruch auf unentgeltliche Beförderung"
+        ]
+      }
+    },
+    "antrag": {
+      "type": "object",
+      "properties": {
+        "zustaendiges_amt": { "type": "string" },
+        "unterlagen": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "bearbeitungszeit": { "type": "string" },
+        "widerspruch_moeglich": { "type": "boolean" }
+      }
+    },
+    "trauma_content": {
+      "type": "boolean",
+      "description": "Enthält die Anfrage traumatisierende Inhalte?"
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Einschätzung dient nur zur Orientierung. Rechtsverbindlich ist allein die Feststellung durch das zuständige Versorgungsamt. Keine medizinische Diagnose."
+    }
+  }
+}

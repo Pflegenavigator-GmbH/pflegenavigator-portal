@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGB I Grundsicherung und Arbeitslosengeld",
+  "description": "Output-Schema für SGB I Ansprüche (ALG I, ALG II, Grundsicherung)",
+  "type": "object",
+  "required": ["anspruch_wahrscheinlich", "leistungsart", "voraussetzungen", "berechnung", "naechste_schritte", "disclaimer"],
+  "properties": {
+    "anspruch_wahrscheinlich": {
+      "type": "boolean",
+      "description": "Ist ein Anspruch wahrscheinlich?"
+    },
+    "leistungsart": {
+      "type": "string",
+      "enum": [
+        "Arbeitslosengeld I (ALG I)",
+        "Arbeitslosengeld II (ALG II / Bürgergeld)",
+        "Grundsicherung im Alter",
+        "Erwerbsminderungsrente",
+        "Krankengeld",
+        "Keine der genannten"
+      ]
+    },
+    "voraussetzungen": {
+      "type": "object",
+      "properties": {
+        "versicherungspflichtig_beschaeftigt": { "type": "boolean" },
+        "arbeitslos_meldung": { "type": "boolean" },
+        "arbeitssuchend": { "type": "boolean" },
+        "beduerftigkeit": { "type": "boolean" },
+        "wohnsitz_deutschland": { "type": "boolean" },
+        "fehlende_voraussetzungen": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "berechnung": {
+      "type": "object",
+      "properties": {
+        "hoechstdauer_monate": { "type": "integer" },
+        "leistungshoehe_prozent": { "type": "integer" },
+        "zu_versteuerndes_einkommen_relevant": { "type": "boolean" },
+        "anmerkungen": { "type": "string" }
+      }
+    },
+    "naechste_schritte": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["schritt", "zustaendige_stelle", "frist"],
+        "properties": {
+          "schritt": { "type": "string" },
+          "zustaendige_stelle": { "type": "string" },
+          "unterlagen": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "frist": { "type": "string" },
+          "wichtig": { "type": "boolean" }
+        }
+      }
+    },
+    "sonderfaelle": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fall": { "type": "string" },
+          "hinweis": { "type": "string" }
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Einschätzung dient nur zur Orientierung. Rechtsverbindlich ist allein die Entscheidung der zuständigen Agentur für Arbeit oder des Jobcenters. Keine rechtsverbindliche Beratung."
+    }
+  }
+}

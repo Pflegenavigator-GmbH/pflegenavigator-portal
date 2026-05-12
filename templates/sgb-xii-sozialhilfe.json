@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGB XII Sozialhilfe",
+  "description": "Output-Schema für SGB XII Ansprüche (Grundsicherung, Hilfe zum Lebensunterhalt, Eingliederungshilfe)",
+  "type": "object",
+  "required": ["hilfeart", "anspruch_wahrscheinlich", "bedarf", "vermoegen_einkommen", "verfahren", "disclaimer"],
+  "properties": {
+    "hilfeart": {
+      "type": "string",
+      "enum": [
+        "Hilfe zum Lebensunterhalt",
+        "Grundsicherung im Alter und bei Erwerbsminderung",
+        "Hilfe zur Pflege",
+        "Hilfe zur Überwindung besonderer sozialer Schwierigkeiten",
+        "Hilfe zur Erziehung",
+        "Hilfe für junge Volljährige",
+        "Eingliederungshilfe für behinderte Menschen",
+        "Sozialgeld (nach SGB II)"
+      ]
+    },
+    "anspruch_wahrscheinlich": {
+      "type": "boolean",
+      "description": "Ist ein Anspruch wahrscheinlich?"
+    },
+    "bedarf": {
+      "type": "object",
+      "properties": {
+        "regelbedarf": { "type": "number" },
+        "zuschlaege": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "zuschlag": { "type": "string" },
+              "betrag": { "type": "number" }
+            }
+          }
+        },
+        "kosten_der_unterkunft": { "type": "number" },
+        "gesamtbedarf": { "type": "number" }
+      }
+    },
+    "vermoegen_einkommen": {
+      "type": "object",
+      "properties": {
+        "einkommen_anzurechnen": { "type": "boolean" },
+        "vermoegen_anzurechnen": { "type": "boolean" },
+        "freibetraege": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "bemerkungen": { "type": "string" }
+      }
+    },
+    "verfahren": {
+      "type": "object",
+      "properties": {
+        "zustaendige_behoerde": { "type": "string" },
+        "antrag_erforderlich": { "type": "boolean" },
+        "nachzahlung_moeglich": { "type": "boolean" },
+        "rueckforderung_moeglich": { "type": "boolean" },
+        "unterlagen": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "sonderregelungen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "regelung": { "type": "string" },
+          "beschreibung": { "type": "string" }
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Einschätzung dient nur zur Orientierung. Rechtsverbindlich ist allein die Entscheidung des zuständigen Sozialamtes. Keine rechtsverbindliche Beratung."
+    }
+  }
+}

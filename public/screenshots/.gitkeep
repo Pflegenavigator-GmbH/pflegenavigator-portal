@@ -1,0 +1,7 @@
+# Screenshots für PWA Manifest
+
+Dieses Verzeichnis sollte Screenshots enthalten:
+- home.png (1280x720) - Desktop Screenshot
+- mobile.png (750x1334) - Mobile Screenshot
+
+Platzhalter werden entfernt aus manifest.json bis echte Screenshots vorhanden sind.

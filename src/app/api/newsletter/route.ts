@@ -5,6 +5,8 @@ interface NewsletterSignup {
   language: string;
   topics: string[];
   privacyAccepted: boolean;
+  confirmationToken?: string;
+  confirmed?: boolean;
 }
 
 // In-memory Store fuer Demo (in Produktion: Datenbank)

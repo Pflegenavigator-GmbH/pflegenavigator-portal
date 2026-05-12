@@ -17,7 +17,7 @@ export interface ValidationResult {
  */
 export function validateForm(
   data: Record<string, unknown>,
-  rules: Record<string, ValidationRule[]
+  rules: Record<string, ValidationRule[]>
 ): ValidationResult {
   const errors: ValidationError[] = [];
 

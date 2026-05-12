@@ -147,7 +147,7 @@ export class SupabaseUsageMonitor {
   /**
    * Calculate total storage size across all buckets
    */
-  private async calculateStorageSize(buckets: any[]): Promise<number> {
+  private async calculateStorageSize(buckets: any[] | null): Promise<number> {
     let totalSize = 0;
     
     if (!buckets) return totalSize;

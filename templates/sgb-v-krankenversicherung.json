@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGB V Krankenversicherung",
+  "description": "Output-Schema für SGB V Ansprüche (Leistungen, Rechte, Krankengeld)",
+  "type": "object",
+  "required": ["versicherungspflicht", "leistungen", "kostenbeteiligung", "rechte", "disclaimer"],
+  "properties": {
+    "versicherungspflicht": {
+      "type": "object",
+      "properties": {
+        "ist_pflichtversichert": { "type": "boolean" },
+        "ist_freiwillig_versichert": { "type": "boolean" },
+        "nicht_versichert_moeglich": { "type": "boolean" },
+        "pruefempfohlen": { "type": "boolean" }
+      }
+    },
+    "leistungen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["leistung", "umfang", "einschraenkungen"],
+        "properties": {
+          "leistung": {
+            "type": "string",
+            "enum": [
+              "Leistungen bei Krankheit",
+              "Vorsorgeuntersuchungen",
+              "Impfungen",
+              "Mutterschaftsleistungen",
+              "Krankengeld",
+              "Pflegezeit",
+              "Familienpflegezeit",
+              "Rehabilitation",
+              "Zahnbehandlungen",
+              "Hilfsmittel",
+              "Krankenhausbehandlung",
+              "Ambulante Behandlung",
+              "Arzneimittel",
+              "Heil- und Hilfsmittel"
+            ]
+          },
+          "umfang": { "type": "string" },
+          "einschraenkungen": { "type": "string" },
+          "zuzahlung": { "type": "string" }
+        }
+      }
+    },
+    "kostenbeteiligung": {
+      "type": "object",
+      "properties": {
+        "zuzahlungspflicht": { "type": "boolean" },
+        "zuzahlungsbefreiung_moeglich": { "type": "boolean" },
+        "bemerkungen": { "type": "string" }
+      }
+    },
+    "krankengeld": {
+      "type": "object",
+      "properties": {
+        "anspruch": { "type": "boolean" },
+        "hoechstdauer_wochen": { "type": "integer" },
+        "hoehe_prozent": { "type": "integer" },
+        "voraussetzungen": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "rechte": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recht": { "type": "string" },
+          "beschreibung": { "type": "string" }
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Informationen dienen nur zur Orientierung. Rechtsverbindlich sind allein die Leistungsbeschreibungen Ihrer Krankenkasse und die gesetzlichen Regelungen. Keine medizinische Beratung. Keine Diagnosen."
+    }
+  }
+}

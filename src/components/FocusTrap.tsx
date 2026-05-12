@@ -67,9 +67,11 @@ export function FocusTrap({
           initialFocusRef.current.focus();
         } else {
           // Suche erstes fokussierbares Element
-          const focusableElements = getFocusableElements(containerRef.current);
-          if (focusableElements.length > 0) {
-            focusableElements[0].focus();
+          if (containerRef.current) {
+            const focusableElements = getFocusableElements(containerRef.current);
+            if (focusableElements.length > 0) {
+              focusableElements[0].focus();
+            }
           }
         }
       }, 0);

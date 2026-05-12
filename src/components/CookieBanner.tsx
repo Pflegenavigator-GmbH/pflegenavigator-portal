@@ -74,9 +74,9 @@ export default function CookieBanner() {
                         className="text-slate-500"
                       >
                         {showDetails ? (
-                          <>ChevronUp className="w-4 h-4 mr-1" /> Weniger</>
+                          <><ChevronUp className="w-4 h-4 mr-1" /> Weniger</>
                         ) : (
-                          <>ChevronDown className="w-4 h-4 mr-1" /> Details</>
+                          <><ChevronDown className="w-4 h-4 mr-1" /> Details</>
                         )}
                       </Button>
                     </div>

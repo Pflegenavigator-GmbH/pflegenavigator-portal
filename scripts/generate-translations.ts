@@ -1,6 +1,8 @@
-# ÜBERSETZUNGSGENERATOR - 35 Sprachen für PflegeNavigator
-# Automatisierte Übersetzungen (DE → Zielsprache)
-# Hinweis: Dies ist ein Template - echte Übersetzung erfordert LibreTranslate oder professionelle Dienstleister
+/**
+ * Übersetzungsgenerator - 35 Sprachen für PflegeNavigator
+ * Automatisierte Übersetzungen (DE → Zielsprache)
+ * Hinweis: Dies ist ein Template - echte Übersetzung erfordert LibreTranslate oder professionelle Dienstleister
+ */
 
 import fs from 'fs';
 import path from 'path';
@@ -132,14 +134,14 @@ export function writeTranslationFiles(outputDir: string = './locales') {
     const filePath = path.join(langDir, 'common.json');
     fs.writeFileSync(filePath, JSON.stringify(content, null, 2), 'utf-8');
     
-    console.log(`✅ Generated: ${filePath}`);
+    console.log(`Generated: ${filePath}`);
   }
   
   // README generieren
   const readmeContent = generateReadme();
   fs.writeFileSync(path.join(outputDir, 'README.md'), readmeContent, 'utf-8');
   
-  console.log(`✅ Generated: ${path.join(outputDir, 'README.md')}`);
+  console.log(`Generated: ${path.join(outputDir, 'README.md')}`);
 }
 
 // README mit Übersetzungsstatus
@@ -154,49 +156,49 @@ Dieses Verzeichnis enthält die Übersetzungen für das PflegeNavigator EU Porta
 
 ## Prioritäten
 
-### 🔴 High Priority (Top 6)
-- 🇬🇧 English (en) - ✅ Fertig
-- 🇹🇷 Türkçe (tr) - ⚠️ Teilweise (Platzhalter)
-- 🇵🇱 Polski (pl) - ⚠️ Teilweise (Platzhalter)
-- 🇷🇺 Русский (ru) - ⚠️ Teilweise (Platzhalter)
-- 🇸🇦 العربية (ar) - ⚠️ Teilweise + RTL
-- 🇮🇷 فارسی (fa) - ⚠️ Teilweise + RTL
+### High Priority (Top 6)
+- English (en) - Fertig
+- Türkçe (tr) - Teilweise (Platzhalter)
+- Polski (pl) - Teilweise (Platzhalter)
+- Русский (ru) - Teilweise (Platzhalter)
+- العربية (ar) - Teilweise + RTL
+- فارسی (fa) - Teilweise + RTL
 
-### 🟡 Medium Priority (EU-Nachbarn)
-- 🇮🇹 Italiano (it) - ⚠️ Platzhalter
-- 🇪🇸 Español (es) - ⚠️ Platzhalter
-- 🇫🇷 Français (fr) - ⚠️ Platzhalter
-- 🇺🇦 Українська (uk) - ⚠️ Platzhalter
-- 🇷🇴 Română (ro) - ⚠️ Platzhalter
-- 🇧🇬 Български (bg) - ⚠️ Platzhalter
-- 🇭🇷 Hrvatski (hr) - ⚠️ Platzhalter
-- 🇷🇸 Српски (sr) - ⚠️ Platzhalter
-- 🇸🇮 Slovenščina (sl) - ⚠️ Platzhalter
+### Medium Priority (EU-Nachbarn)
+- Italiano (it) - Platzhalter
+- Español (es) - Platzhalter
+- Français (fr) - Platzhalter
+- Українська (uk) - Platzhalter
+- Română (ro) - Platzhalter
+- Български (bg) - Platzhalter
+- Hrvatski (hr) - Platzhalter
+- Српски (sr) - Platzhalter
+- Slovenščina (sl) - Platzhalter
 
-### 🟢 Standard Priority
-- 🇭🇺 Magyar (hu) - ⚠️ Platzhalter
-- 🇬🇷 Ελληνικά (el) - ⚠️ Platzhalter
-- 🇵🇹 Português (pt) - ⚠️ Platzhalter
-- 🇳🇱 Nederlands (nl) - ⚠️ Platzhalter
-- 🇩🇰 Dansk (da) - ⚠️ Platzhalter
-- 🇸🇪 Svenska (sv) - ⚠️ Platzhalter
-- 🇳🇴 Norsk (no) - ⚠️ Platzhalter
-- 🇫🇮 Suomi (fi) - ⚠️ Platzhalter
-- 🇪🇪 Eesti (et) - ⚠️ Platzhalter
-- 🇱🇻 Latviešu (lv) - ⚠️ Platzhalter
-- 🇱🇹 Lietuvių (lt) - ⚠️ Platzhalter
-- 🇨🇿 Čeština (cs) - ⚠️ Platzhalter
-- 🇸🇰 Slovenčina (sk) - ⚠️ Platzhalter
-- 🇯🇵 日本語 (ja) - ⚠️ Platzhalter
-- 🇰🇷 한국어 (ko) - ⚠️ Platzhalter
-- 🇨🇳 中文 (zh) - ⚠️ Platzhalter
-- 🇮🇳 हिंदी (hi) - ⚠️ Platzhalter
-- 🇹🇭 ไทย (th) - ⚠️ Platzhalter
-- 🇻🇳 Tiếng Việt (vi) - ⚠️ Platzhalter
+### Standard Priority
+- Magyar (hu) - Platzhalter
+- Ελληνικά (el) - Platzhalter
+- Português (pt) - Platzhalter
+- Nederlands (nl) - Platzhalter
+- Dansk (da) - Platzhalter
+- Svenska (sv) - Platzhalter
+- Norsk (no) - Platzhalter
+- Suomi (fi) - Platzhalter
+- Eesti (et) - Platzhalter
+- Latviešu (lv) - Platzhalter
+- Lietuvių (lt) - Platzhalter
+- Čeština (cs) - Platzhalter
+- Slovenčina (sk) - Platzhalter
+- 日本語 (ja) - Platzhalter
+- 한국어 (ko) - Platzhalter
+- 中文 (zh) - Platzhalter
+- हिंदी (hi) - Platzhalter
+- ไทย (th) - Platzhalter
+- Tiếng Việt (vi) - Platzhalter
 
 ## RTL-Sprachen (Rechts-nach-Links)
-- 🇸🇦 Arabisch (ar)
-- 🇮🇷 Farsi (fa)
+- Arabisch (ar)
+- Farsi (fa)
 
 ## Nutzung
 
@@ -221,15 +223,15 @@ Dieses Verzeichnis enthält die Übersetzungen für das PflegeNavigator EU Porta
 
 ## Qualitätssicherung
 
-- ✅ Automatische Validierung (JSON-Format)
-- ✅ Key-Vollständigkeit prüfen
-- ✅ Länge der Übersetzungen (max. 150% der deutschen Länge)
-- 🔄 Community-Review empfohlen
+- Automatische Validierung (JSON-Format)
+- Key-Vollständigkeit prüfen
+- Länge der Übersetzungen (max. 150% der deutschen Länge)
+- Community-Review empfohlen
 
 ## Fehlende Übersetzungen finden
 
 \`\`\`bash
-grep -r '\[TR\]\\|\\[PL\]\\|\\[RU\]' locales/
+grep -r '\[TR\]\|\[PL\]\|\[RU\]' locales/
 \`\`\`
 
 ## Kontakt

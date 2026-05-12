@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NBA Niedrigschwellige Betreuungsangebote",
+  "description": "Output-Schema für NBA-Einschätzung (6 Module)",
+  "type": "object",
+  "required": ["nba_empfohlen", "module", "dienste", "disclaimer"],
+  "properties": {
+    "nba_empfohlen": {
+      "type": "boolean",
+      "description": "Ist ein NBA sinnvoll für diese Situation?"
+    },
+    "module": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["modul_id", "modul_name", "relevanz", "begruendung"],
+        "properties": {
+          "modul_id": {
+            "type": "integer",
+            "enum": [1, 2, 3, 4, 5, 6]
+          },
+          "modul_name": {
+            "type": "string",
+            "enum": [
+              "Entlastung im Alltag",
+              "Soziale Teilhabe",
+              "Beratung und Vermittlung",
+              "Gesundheitskompetenz",
+              "Notfall- und Krisenprävention",
+              "Pflegekompentente Begleitung"
+            ]
+          },
+          "relevanz": {
+            "type": "string",
+            "enum": ["hoch", "mittel", "niedrig", "nicht relevant"]
+          },
+          "begruendung": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "dienste": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "art", "kontakt_empfohlen"],
+        "properties": {
+          "name": { "type": "string" },
+          "art": {
+            "type": "string",
+            "enum": [
+              "Pflegestützpunkt",
+              "Pflegeberatung",
+              "Selbsthilfegruppe",
+              "Kurzzeitpflege",
+              "Tagespflege",
+              "Sozialer Dienst",
+              "Psychosoziale Beratung",
+              "Hospizdienst"
+            ]
+          },
+          "beschreibung": { "type": "string" },
+          "kontakt_empfohlen": { "type": "boolean" }
+        }
+      }
+    },
+    "notfall_kriterien": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Akute Überlastung der Pflegeperson",
+          "Gefährdung des Pflegebedürftigen",
+          "Gesundheitliche Krise",
+          "Psychische Belastung (Suizidgedanken etc.)",
+          "Keine andere Hilfe verfügbar"
+        ]
+      }
+    },
+    "ist_notfall": {
+      "type": "boolean",
+      "description": "Erfüllt die Situation Notfall-Kriterien?"
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Diese Einschätzung dient nur zur Orientierung bei der Auswahl von niedrigschwelligen Betreuungsangeboten. Im Notfall wählen Sie 112 oder die kriseninterventionäre Dienstnummer. Keine medizinische Beratung."
+    }
+  }
+}
