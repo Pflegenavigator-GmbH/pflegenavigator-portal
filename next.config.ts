@@ -4,12 +4,11 @@ import type { NextConfig } from "next";
 let withAnalyzer: (config: NextConfig) => NextConfig = (config) => config;
 
 if (process.env.ANALYZE === "true") {
-  // Use require for sync loading
   const withBundleAnalyzer = require("@next/bundle-analyzer")({ enabled: true });
   withAnalyzer = withBundleAnalyzer;
 }
 
-// CSP-Konfiguration für maximale Sicherheit
+// CSP-Konfiguration
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://analytics.umami.is;
@@ -27,104 +26,55 @@ const ContentSecurityPolicy = `
   upgrade-insecure-requests;
 `;
 
-// Security Headers
 const securityHeaders = [
-  {
-    key: "Content-Security-Policy",
-    value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-  },
-  {
-    key: "X-Frame-Options",
-    value: "DENY",
-  },
-  {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
-  },
-  {
-    key: "Referrer-Policy",
-    value: "strict-origin-when-cross-origin",
-  },
-  {
-    key: "X-DNS-Prefetch-Control",
-    value: "on",
-  },
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=63072000; includeSubDomains; preload",
-  },
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
-  },
-  {
-    key: "X-XSS-Protection",
-    value: "1; mode=block",
-  },
+  { key: "Content-Security-Policy", value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim() },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-DNS-Prefetch-Control", value: "on" },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()" },
+  { key: "X-XSS-Protection", value: "1; mode=block" },
 ];
 
 const nextConfig: NextConfig = {
   output: "standalone",
 
-  // Image-Optimierung aktiviert
   images: {
-    unoptimized: false,
+    unoptimized: true,
     formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // TypeScript Strict Mode
   typescript: {
     ignoreBuildErrors: true,
   },
 
-  // SRI (Subresource Integrity) für externe Scripts
   async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: securityHeaders,
-      },
-    ];
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
 
-  // Performance-Optimierungen
   experimental: {
     optimizePackageImports: [
       "lucide-react",
       "@radix-ui/react-separator",
       "@supabase/supabase-js",
     ],
+    parallelServerBuildTraces: true,
+    parallelServerCompiles: true,
   },
 
-  turbopack: {
-    // Empty config to satisfy Next.js 16
-  },
+  turbopack: {},
 
-  // Redirects für SEO und Sicherheit
   async redirects() {
     return [
-      {
-        source: "/index.php",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/index.html",
-        destination: "/",
-        permanent: true,
-      },
+      { source: "/index.php", destination: "/", permanent: true },
+      { source: "/index.html", destination: "/", permanent: true },
     ];
   },
-
-  staticPageGenerationTimeout: 300,
-
-  // Admin pages als dynamisch markieren
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
 
   // Weitere Optimierungen
   poweredByHeader: false,
@@ -132,5 +82,4 @@ const nextConfig: NextConfig = {
   compress: true,
 };
 
-// Export mit optionaler Bundle-Analyse
 export default withAnalyzer(nextConfig);

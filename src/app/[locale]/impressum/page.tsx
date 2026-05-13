@@ -1,3 +1,7 @@
+// Force dynamic rendering - no static generation for this page
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Mail, Phone, Globe, Shield, FileText, AlertCircle } from 'lucide-react';
 import Link from 'next/link';

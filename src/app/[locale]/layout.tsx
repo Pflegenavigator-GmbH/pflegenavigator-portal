@@ -63,8 +63,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
+// Generiere nur die Haupt-Sprachen statisch für schnelleren Build
+// Andere Sprachen werden on-demand gerendert
 export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  const primaryLocales = ['de', 'en', 'fr', 'es', 'it', 'pt'];
+  return primaryLocales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
