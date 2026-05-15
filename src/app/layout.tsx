@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
 
-// This is a root layout that redirects via middleware
-// The actual locale layout is in [locale]/layout.tsx
+/**
+ * ROOT LAYOUT - Minimal & Production-Ready
+ * 
+ * Regel: Nur EIN echtes Root Layout mit <html> + <body>
+ * Alles andere kommt in [locale]/layout.tsx
+ * 
+ * @see https://nextjs.org/docs/app/api-reference/file-conventions/layout
+ */
 
 export const metadata: Metadata = {
   title: "PflegeNavigator EU - Pflegegrad einfach berechnen",
@@ -19,7 +25,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Middleware redirects to /{locale}, so this only renders briefly
   return (
     <html lang="de">
       <body>{children}</body>
