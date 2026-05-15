@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
+import { UmamiAnalytics } from "@/components/Analytics";
 
 /**
- * ROOT LAYOUT - Minimal & Production-Ready
+ * ROOT LAYOUT - Production-Ready Nested Layout Pattern
  * 
- * Regel: Nur EIN echtes Root Layout mit <html> + <body>
- * Alles andere kommt in [locale]/layout.tsx
+ * Dies ist das EINZIGE Layout mit <html> und <body>.
+ * [locale]/layout.tsx rendert nur den App-Chrome (Header/Footer).
  * 
- * @see https://nextjs.org/docs/app/api-reference/file-conventions/layout
+ * @see https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates#nesting-layouts
  */
 
 export const metadata: Metadata = {
@@ -27,6 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
+      <head>
+        <UmamiAnalytics />
+        <meta name="theme-color" content="#0066cc" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="PflegeNav" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { UmamiAnalytics } from "@/components/Analytics";
 import I18nProvider from "@/components/I18nProvider";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import PWARegister from "@/components/PWARegister";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import { notFound } from "next/navigation";
-import { locales, Locale, isValidLocale } from "@/lib/i18n/config";
+import { locales, isValidLocale } from "@/lib/i18n/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +27,6 @@ export const viewport: Viewport = {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   
-  // Build alternates for all locales
   const alternates: Record<string, string> = {};
   locales.forEach((loc) => {
     alternates[loc] = `/${loc}`;
@@ -63,8 +61,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-// Generiere nur die Haupt-Sprachen statisch für schnelleren Build
-// Andere Sprachen werden on-demand gerendert
 export async function generateStaticParams() {
   const primaryLocales = ['de', 'en', 'fr', 'es', 'it', 'pt'];
   return primaryLocales.map((locale) => ({ locale }));
@@ -88,26 +84,15 @@ export default async function LocaleLayout({
 }>) {
   const { locale } = await params;
   
-  // Validate locale
   if (!isValidLocale(locale)) {
     notFound();
   }
 
-  // Set RTL direction based on locale
   const rtlLanguages = ['ar', 'fa', 'he', 'ur'];
   const dir = rtlLanguages.includes(locale) ? 'rtl' : 'ltr';
   
   return (
     <>
-      <head>
-        <UmamiAnalytics />
-        <meta name="theme-color" content="#0066cc" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="PflegeNav" />
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-      </head>
-      
       <PWARegister />
       <PWAInstallPrompt />
       
