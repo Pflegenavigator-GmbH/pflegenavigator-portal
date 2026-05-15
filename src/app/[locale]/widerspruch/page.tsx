@@ -2,8 +2,8 @@
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-import pageContent from './pageContent'
+import PageContent from './pageContent'
 
 export default function Page() {
-  return <pageContent />
+  return <PageContent />
 }
